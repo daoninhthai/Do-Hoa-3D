@@ -1,0 +1,26 @@
+.bg {
+    display: none;
+}
+
+canvas {
+    position: absolute;
+}
+
+.text {
+    float: left;
+    width: 1200px;
+    margin-right: 100px;
+    z-index: -1000;
+}
+
+.content {
+    display: flex
+}
+
+.control {
+    position: absolute;
+    float: right;
+    top: 20px;
+    right: 200px;
+    z-index: 1000;
+}

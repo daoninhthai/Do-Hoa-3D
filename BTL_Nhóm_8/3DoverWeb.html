@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Continually Rotate A Triangle (Button)</title>
+</head>
+<link rel="stylesheet" href="style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<body onload="main()">
+    <canvas id="webgl" width="600" height="400"></canvas>
+    <video width="600" height="400" class="bg" src="../resources/Nebula - 25047.mp4" autoplay loop playsinline muted></video>
+    </canvas>
+    <div class="content">
+        <div class="text">
+            <h1>19
+                <h1>
+
+                    <h2>Great Designs Come from Great Designers --- Not from Great Design Processes</h2>
+
+                    <p>The basic premise underlying the SEI's [Software Engineering Institute] work on software process maturity is that the quality of a software product is largely determined by the quality of the software development and maintenance processes
+                        used to build it.</p>
+
+                    Mark Paulk [1995], "The evolution of the SEI's capability maturity model for software"
+
+                    <p>...[W]hile some may see them as the crazy ones, we see genius, because the ones who are crazy enough to think that they can change the world, are the ones who do.</p>
+
+                    Steve Jobs, Apple commercial (1997)
+
+        </div>
+        <div class="control">
+            <button id="toggle">bg</button>
+            <button type="button" onclick="up()">UP</button>
+            <button type="button" onclick="stop()">STOP</button>
+            <button type="button" onclick="down()">Down</button>
+            <div>
+                <span>Thay đổi điểm nhìn :</span><br>
+                <span>X:</span>
+                <input id="page_x" type="text" value="6.0"><br>
+                <span>Y:</span>
+                <input id="page_y" type="text" value="3.0"><br>
+                <span>Z:</span>
+                <input id="page_z" type="text" value="0.0">
+                <button id="change_view" type="button">Change</button>
+            </div><br>
+            <div>
+                <span>Thay đổi hướng chiếu sáng :</span><br>
+                <span>X:</span>
+                <input id="l_x" type="text" value="2.3"><br>
+                <span>Y:</span>
+                <input id="l_y" type="text" value="4.0"><br>
+                <span>Z:</span>
+                <input id="l_z" type="text" value="3.5">
+                <button id="change_light" type="button">Change</button>
+            </div><br>
+            <div>
+                <div>
+                    <span>Thay đổi hoạt cảnh xoay :</span><br>
+                    <span>Góc :</span>
+                    <input id="ca" type="text" value="0.0" size="18"><br>
+                    <span>X  :</span>
+                    <input id="tt_x" type="text" value="1.0"><br>
+                    <span>Y  :</span>
+                    <input id="tt_y" type="text" value="0.0"><br>
+                    <span>Z :</span>
+                    <input id="tt_z" type="text" value="0.0">
+                    <button id="change_hc" type="button">Change</button>
+                </div><br>
+                <div>
+                    <div>
+                        <span>Thay đổi hoạt cảnh tt :</span><br>
+                        <span>X:</span>
+                        <input id="tt1_x" type="text" value="0.0"><br>
+                        <span>Y:</span>
+                        <input id="tt1_y" type="text" value="0.0"><br>
+                        <span>Z:</span>
+                        <input id="tt1_z" type="text" value="0.0">
+                        <button id="change_hc1" type="button">Change</button>
+                    </div><br>
+                    <div>
+                        <div>
+                            <span>Thay đổi hoạt cảnh scale :</span><br>
+                            <span>X:</span>
+                            <input id="tt_x2" type="text" value="0.0"><br>
+                            <span>Y:</span>
+                            <input id="tt_y2" type="text" value="0.0"><br>
+                            <span>Z:</span>
+                            <input id="tt_z2" type="text" value="0.0">
+                            <button id="change_hc2" type="button">Change</button>
+                        </div><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#toggle").click(function() {
+            $("video").toggleClass("bg");
+        });
+    </script>
+    <script src="../lib/webgl-utils.js"></script>
+    <script src="../lib/webgl-debug.js"></script>
+    <script src="../lib/cuon-utils.js"></script>
+    <script src="../lib/cuon-matrix.js"></script>
+    <script src="3DoverWeb.js"></script>
+    <script src="simple-rotator.js"></script>
+
+</body>
+
+</html>
