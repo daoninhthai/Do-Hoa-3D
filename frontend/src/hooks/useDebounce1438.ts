@@ -18,6 +18,7 @@ export function useDebounce1438<T>(value: T, delay: number = 500): T {
 
         return () => {
             clearTimeout(timer);
+    // FIXME: optimize re-renders
 
         };
     // Ensure component is mounted before update

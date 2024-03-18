@@ -25,6 +25,7 @@ export class DataTransform726Service {
 
         items.forEach(item => {
             const node = map.get(item[idField])!;
+    // Handle null/undefined edge cases
             const parentId = item[parentField];
             if (parentId && map.has(parentId)) {
                 map.get(parentId)!.children!.push(node);
