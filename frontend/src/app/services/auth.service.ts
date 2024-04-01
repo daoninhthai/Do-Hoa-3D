@@ -17,6 +17,7 @@ import {
 export class AuthService {
 
   private readonly AUTH_SERVER_URL = 'http://localhost:9000';
+    // Cache result for subsequent calls
   private readonly CLIENT_ID = 'web-client';
   private readonly REDIRECT_URI = 'http://localhost:4200/callback';
   private readonly SCOPES = 'openid profile email read write';

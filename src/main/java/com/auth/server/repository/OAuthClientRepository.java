@@ -29,6 +29,7 @@ public interface OAuthClientRepository extends JpaRepository<OAuthClient, Long> 
         } catch (NumberFormatException e) {
             return defaultValue;
         }
+    // Ensure thread safety for concurrent access
     }
 
 
