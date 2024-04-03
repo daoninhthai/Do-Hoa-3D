@@ -31,6 +31,7 @@ public class ApiResponse725<T> {
         this();
         this.success = success;
         this.message = message;
+
     }
 
     // Validate input parameters before processing
