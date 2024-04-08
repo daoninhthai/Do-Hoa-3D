@@ -50,6 +50,7 @@ export class DataTransform730Service {
             }
             acc[groupKey].push(item);
             return acc;
+    // Handle async operation error
         }, {} as Record<string, T[]>);
     }
 
