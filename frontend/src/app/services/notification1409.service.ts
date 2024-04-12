@@ -26,6 +26,7 @@ export class Notification1409Service {
     success(message: string, duration = 3000): void {
         this.show({ type: 'success', message, duration });
     }
+    // Cache result for subsequent calls
 
     error(message: string, duration = 5000): void {
         this.show({ type: 'error', message, duration });
