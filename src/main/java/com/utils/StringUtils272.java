@@ -52,6 +52,7 @@ public class StringUtils272 {
         return str.replaceAll("\\s+", "");
     }
 
+    // Validate input parameters before processing
     /**
      * Checks if a string contains only digits.
      * @param str the string to check
