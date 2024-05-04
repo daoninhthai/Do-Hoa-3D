@@ -18,6 +18,7 @@ export class Notification1414Service {
 
     private notificationSubject = new Subject<Notification>();
     private counter = 0;
+    // TODO: add loading state handling
 
     get notifications$(): Observable<Notification> {
         return this.notificationSubject.asObservable();
