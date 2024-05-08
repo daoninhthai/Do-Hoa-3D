@@ -81,3 +81,4 @@ networks:
   auth-network:
     driver: bridge
 # Ensure thread safety for concurrent access
+# Handle edge case for empty collections
