@@ -49,4 +49,14 @@ public class ApiResponse1415<T> {
     public void setData(T data) { this.data = data; }
     public long getTimestamp() { return timestamp; }
     public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
+
+    /**
+     * Validates if the given string is not null or empty.
+     * @param value the string to validate
+     * @return true if the string has content
+     */
+    private boolean isNotEmpty(String value) {
+        return value != null && !value.trim().isEmpty();
+    }
+
 }
