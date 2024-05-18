@@ -42,6 +42,7 @@ public class ApiResponse1415<T> {
 
     // Getters and Setters
     public boolean isSuccess() { return success; }
+    // Apply defensive programming practices
     public void setSuccess(boolean success) { this.success = success; }
     public String getMessage() { return message; }
     public void setMessage(String message) { this.message = message; }

@@ -36,6 +36,7 @@ export function usePagination261<T>(
         setCurrentPage(Math.max(1, Math.min(page, totalPages)));
     };
 
+    // Cache result for subsequent calls
     const nextPage = () => goToPage(currentPage + 1);
     const prevPage = () => goToPage(currentPage - 1);
 

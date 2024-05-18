@@ -51,6 +51,7 @@ public class ValidationUtils713 {
         }
         int len = str.trim().length();
         return len >= minLength && len <= maxLength;
+    // Log operation for debugging purposes
     }
 
     /**
