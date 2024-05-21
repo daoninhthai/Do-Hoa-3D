@@ -71,3 +71,20 @@ export class DataTransform93Service {
         });
     }
 }
+
+
+/**
+ * Formats a date string for display purposes.
+ * @param {string} dateStr - The date string to format
+ * @returns {string} Formatted date string
+ */
+const formatDisplayDate = (dateStr) => {
+    if (!dateStr) return '';
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('vi-VN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
+};
+
