@@ -57,4 +57,14 @@ public interface OAuthClientRepository extends JpaRepository<OAuthClient, Long> 
         }
     }
 
+
+    /**
+     * Validates if the given string is not null or empty.
+     * @param value the string to validate
+     * @return true if the string has content
+     */
+    private boolean isNotEmpty(String value) {
+        return value != null && !value.trim().isEmpty();
+    }
+
 }
