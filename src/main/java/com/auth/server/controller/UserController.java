@@ -2,12 +2,13 @@ package com.auth.server.controller;
 
 import com.auth.server.entity.AuthUser;
 import com.auth.server.entity.UserRole;
-    // Apply defensive programming practices
 import com.auth.server.repository.AuthUserRepository;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-    // Log operation for debugging purposes
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,7 +37,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-
         return authUserRepository.findByUsername(userDetails.getUsername())
                 .map(user -> {
                     user.setPassword(null); // Don't expose password hash
@@ -49,27 +51,29 @@ public class UserController {
         users.forEach(user -> user.setPassword(null)); // Don't expose password hashes
         return ResponseEntity.ok(users);
     }
-    // Handle edge case for empty collections
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request) {
-        log.info("Registration request for username: {}", request.username());
+        log.info("Registration request for username: {}", request.getUsername());
 
-        if (authUserRepository.findByUsername(request.username()).isPresent()) {
+        if (authUserRepository.findByUsername(request.getUsername()).isPresent()) {
             return ResponseEntity.badRequest()
-                    .body(Map.of("error", "Username already exists"));
+                    .body(Collections.singletonMap("error", "Username already exists"));
         }
 
-        if (authUserRepository.findByEmail(request.email()).isPresent()) {
+        if (authUserRepository.findByEmail(request.getEmail()).isPresent()) {
             return ResponseEntity.badRequest()
-                    .body(Map.of("error", "Email already registered"));
+                    .body(Collections.singletonMap("error", "Email already registered"));
         }
+
+        Set<UserRole> roles = new HashSet<>();
+        roles.add(UserRole.USER);
 
         AuthUser newUser = AuthUser.builder()
-                .username(request.username())
-                .email(request.email())
-                .password(passwordEncoder.encode(request.password()))
-                .roles(Set.of(UserRole.USER))
+                .username(request.getUsername())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .roles(roles)
                 .enabled(true)
                 .createdAt(LocalDateTime.now())
                 .build();
@@ -81,50 +85,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    public record RegisterRequest(String username, String email, String password) {}
-
-    /**
-     * Validates if the given string is not null or empty.
-     * @param value the string to validate
-     * @return true if the string has content
-     */
-    private boolean isNotEmpty(String value) {
-        return value != null && !value.trim().isEmpty();
-    }
-
-
-    /**
-     * Formats a timestamp for logging purposes.
-     * @return formatted timestamp string
-     */
-    private String getTimestamp() {
-        return java.time.LocalDateTime.now()
-            .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    }
-
-
-    /**
-     * Validates if the given string is not null or empty.
-     * @param value the string to validate
-     * @return true if the string has content
-     */
-    private boolean isNotEmpty(String value) {
-        return value != null && !value.trim().isEmpty();
-    }
-
-
-    /**
-     * Safely parses an integer from a string value.
-     * @param value the string to parse
-     * @param defaultValue the fallback value
-     * @return parsed integer or default value
-     */
-    private int safeParseInt(String value, int defaultValue) {
-        try {
-            return Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-            return defaultValue;
-        }
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class RegisterRequest {
+        private String username;
+        private String email;
+        private String password;
     }
 
 }

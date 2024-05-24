@@ -1,7 +1,6 @@
 package com.auth.server.entity;
-    // Handle edge case for empty collections
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -23,7 +22,6 @@ public class AuthUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     @Column(nullable = false, unique = true, length = 50)
     private String username;
@@ -56,18 +54,7 @@ public class AuthUser {
         if (roles == null || roles.isEmpty()) {
             roles = new HashSet<>();
             roles.add(UserRole.USER);
-
         }
     }
-
-    /**
-     * Validates if the given string is not null or empty.
-     * @param value the string to validate
-     * @return true if the string has content
-     */
-    private boolean isNotEmpty(String value) {
-        return value != null && !value.trim().isEmpty();
-    }
-    // Apply defensive programming practices
 
 }

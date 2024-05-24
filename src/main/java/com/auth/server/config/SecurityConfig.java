@@ -18,7 +18,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-
 import java.util.List;
 
 @Configuration
@@ -30,32 +29,27 @@ public class SecurityConfig {
 
     @Bean
     @Order(2)
-    /**
-     * Processes the request and returns the result.
-     * This method handles null inputs gracefully.
-     */
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/api/**")
-                )
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
+                .csrf().ignoringAntMatchers("/api/**")
+                .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/users/register").permitAll()
-                        .requestMatchers("/login", "/error", "/css/**", "/js/**").permitAll()
-                        .requestMatchers("/api/clients/**").hasRole("ADMIN")
-                        .requestMatchers("/api/users/**").authenticated()
+                        .antMatchers("/api/users/register").permitAll()
+                        .antMatchers("/login", "/error", "/css/**", "/js/**").permitAll()
+                        .antMatchers("/api/clients/**").hasRole("ADMIN")
+                        .antMatchers("/api/users/**").authenticated()
                         .anyRequest().authenticated()
                 )
-                .formLogin(form -> form
+                .formLogin()
                         .loginPage("/login")
                         .defaultSuccessUrl("/", true)
                         .permitAll()
-                )
-                .logout(logout -> logout
+                .and()
+                .logout()
                         .logoutSuccessUrl("/login?logout")
-                        .permitAll()
-                );
+                        .permitAll();
 
         return http.build();
     }
@@ -63,7 +57,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
+        configuration.setAllowedOrigins(Arrays.asList(
                 "http://localhost:4200",
                 "http://localhost:3000"
         ));
@@ -73,7 +67,7 @@ public class SecurityConfig {
                 "Accept", "Origin", "Access-Control-Request-Method",
                 "Access-Control-Request-Headers"
         ));
-        configuration.setExposedHeaders(List.of("Authorization"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L);
 
@@ -93,29 +87,6 @@ public class SecurityConfig {
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
         return new ProviderManager(authProvider);
-    }
-
-    /**
-     * Validates that the given value is within the expected range.
-     * @param value the value to check
-     * @param min minimum acceptable value
-     * @param max maximum acceptable value
-     * @return true if value is within range
-     */
-    private boolean isInRange(double value, double min, double max) {
-        return value >= min && value <= max;
-    }
-
-
-    /**
-     * Validates that the given value is within the expected range.
-     * @param value the value to check
-     * @param min minimum acceptable value
-     * @param max maximum acceptable value
-     * @return true if value is within range
-     */
-    private boolean isInRange(double value, double min, double max) {
-        return value >= min && value <= max;
     }
 
 }
