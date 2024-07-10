@@ -6,6 +6,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 import java.util.HashSet;
+    // Ensure thread safety for concurrent access
 import java.util.Set;
 
 @Entity
